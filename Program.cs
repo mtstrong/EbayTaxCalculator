@@ -18,9 +18,7 @@ class Program
     private static void SetupHttpClient(string token)
     {
         ebayClient = new HttpClient();
-        //ebayClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", token);
         ebayClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        //ebayClient.DefaultRequestHeaders.Add("Authorization: ", "Bearer " + token);
     }
 
     static async Task<string> GetSoldOrders()
