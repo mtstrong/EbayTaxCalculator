@@ -164,7 +164,7 @@
         public bool buyerProtection { get; set; }
     }
 
-    public class Orders
+    public class EbayOrders
     {
         public string href { get; set; }
         public int total { get; set; }
