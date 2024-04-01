@@ -7,6 +7,7 @@ public class CsvOrder
     public string DeliveryCost { get;set; }
     public string Fees { get; set; }
     public string Total { get; set; }
+    public string Date { get;set; }
 
     public CsvOrder(Order order)
     {
@@ -17,5 +18,6 @@ public class CsvOrder
         DeliveryCost = order.pricingSummary.deliveryCost.value;
         Fees = order.totalMarketplaceFee.value;
         Total = order.paymentSummary.totalDueSeller.value;
+        Date = order.paymentSummary.payments[0].paymentDate.ToString();
     }
 }
