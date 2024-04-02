@@ -25,7 +25,7 @@ class Program
                 order.pricingSummary.deliveryCost.value, order.totalMarketplaceFee.value, order.paymentSummary.totalDueSeller.value);
 
             ordersToCsv.Add(new CsvOrder(order));
-            if(order.lineItems[0].title.Contains("Blu"))
+            if(order.lineItems[0].title.Contains("Blu-"))
             {
                 bluToCsv.Add(new CsvOrder(order));
             }
@@ -49,7 +49,9 @@ class Program
 
         var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
         Console.WriteLine("Writing orders to " + fileLocation);
+        ordersToCsv.OrderBy(x => x.Date);
         csv.WriteRecords(ordersToCsv);
+        writer.Flush();
 
         file = "blu.csv";
         fileLocation = folder + file;
@@ -57,7 +59,9 @@ class Program
 
         csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
         Console.WriteLine("Writing blu-ray orders to " + fileLocation);
+        bluToCsv.OrderBy(x => x.Date);
         csv.WriteRecords(bluToCsv);
+        writer.Flush();
     }
 
     private static void SetupHttpClient(string token)

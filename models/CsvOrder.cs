@@ -12,7 +12,7 @@ public class CsvOrder
     public CsvOrder(Order order)
     {
         OrderId = order.orderId;
-        Description = order.lineItems[0].title;
+        Description = order.lineItems[0].title.Replace("\"", "");;
         Buyer = order.buyer.username;
         PricingSummary = order.pricingSummary.priceSubtotal.value;
         DeliveryCost = order.pricingSummary.deliveryCost.value;
