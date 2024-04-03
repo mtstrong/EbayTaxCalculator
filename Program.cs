@@ -2,6 +2,7 @@
 using System.Net.Http.Headers;
 using System.Text.Json;
 using CsvHelper;
+using CsvHelper.Configuration;
 
 namespace EbayTaxCalculator;
 
@@ -47,7 +48,11 @@ class Program
         var fileLocation = folder + file;
         var writer = new StreamWriter(fileLocation);
 
-        var csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
+        var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+        {
+            ShouldQuote = (field) => false 
+        };
+        var csv = new CsvWriter(writer, config);
         Console.WriteLine("Writing orders to " + fileLocation);
         ordersToCsv.OrderBy(x => x.Date);
         csv.WriteRecords(ordersToCsv);
@@ -57,7 +62,7 @@ class Program
         fileLocation = folder + file;
         writer = new StreamWriter(fileLocation);
 
-        csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
+        csv = new CsvWriter(writer, config);
         Console.WriteLine("Writing blu-ray orders to " + fileLocation);
         bluToCsv.OrderBy(x => x.Date);
         csv.WriteRecords(bluToCsv);
