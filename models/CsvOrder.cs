@@ -1,3 +1,5 @@
+using System.Text;
+
 public class CsvOrder
 {
     public string OrderId { get; set; }
@@ -12,7 +14,29 @@ public class CsvOrder
     public CsvOrder(Order order)
     {
         OrderId = order.orderId;
-        Description = order.lineItems[0].title.Replace("\"", "");;
+        int count = order.lineItems.Count;
+        if(count == 1)
+        {
+            Description = order.lineItems[0].title;
+        }
+        else
+        {
+            var result = new StringBuilder();
+            int i = 0;
+            foreach (var item in order.lineItems)
+            {
+                if(i == 0)
+                {
+                    result.Append(item.title);
+                }
+                else
+                {
+                    result.Append(", " + item.title);
+                }
+                i++;
+            }
+            Description = result.ToString();
+        }
         Buyer = order.buyer.username;
         PricingSummary = order.pricingSummary.priceSubtotal.value;
         DeliveryCost = order.pricingSummary.deliveryCost.value;
